@@ -1,8 +1,12 @@
 const { getCommands, getSlashReply } = require('./client');
 
 const getCommandsController = async (req, res) => {
-    const commands = await getCommands(req.query);
-    res.send(commands);
+    try {
+        const commands = await getCommands(req.query);
+        res.send(commands);
+    } catch (err) {
+        res.sendStatus(400);
+    }
 }
 
 const postSlashController = async (req, res) => {
@@ -10,7 +14,7 @@ const postSlashController = async (req, res) => {
         const reply = await getSlashReply(req.query);
         res.send(reply);
     } catch (err) {
-        res.sendStatus(404);
+        res.sendStatus(400);
     }
 };
 

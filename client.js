@@ -12,12 +12,12 @@ const pick = (obj, paths) => paths
     : obj;
 
 const getChannel = async ({ channelId = CHANNEL_ID, targetId = TARGET_ID }) => {
-    const getChannelId = async (targetId) => {
+    const getChannelIdFromTarget = async (targetId) => {
         const target = await client.users.fetch(targetId);
         channelId = (await target.send('hi')).channelId;
         return channelId;
     }
-    return client.channels.fetch(channelId || getChannelId(targetId));
+    return client.channels.fetch(channelId || await getChannelIdFromTarget(targetId));
 }
 
 const getCommands = async ({ channelId, targetId, commandFields, optionFields }) => {
