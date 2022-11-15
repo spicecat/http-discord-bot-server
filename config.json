@@ -1,0 +1,5 @@
+{
+    "PORT": 8000,
+    "RETRY_LIMIT": 3,
+    "TIMEOUT": 5000
+}

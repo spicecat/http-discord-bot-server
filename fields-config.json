@@ -1,0 +1,24 @@
+{
+    "COMMAND_FIELDS": [
+        "name",
+        "description",
+        "options"
+    ],
+    "EMBED_FIELDS": [
+        "type",
+        "title",
+        "description"
+    ],
+    "MESSAGE_FIELDS": [
+        "content",
+        "embeds"
+    ],
+    "OPTION_FIELDS": [
+        "type",
+        "name",
+        "description",
+        "required",
+        "minValue",
+        "maxValue"
+    ]
+}
