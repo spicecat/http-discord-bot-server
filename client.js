@@ -41,13 +41,14 @@ const getSlashReply = async ({ channelId, targetId, commandName, ...args }) => {
 
 const sendSlash = async ({ channel, commandName, args }) => {
     const commands = await getChannelCommands({ channel });
-    const { options } = commands.filter((cmd) => cmd.name === commandName)[0];
+    const { options } = commands.filter(cmd => cmd.name === commandName)[0];
     const optionsArr = options.map(({ name }) => args[name]);
-    return channel.sendSlash(TARGET_ID, commandName, optionsArr);
+    return channel.sendSlash(channel.recipient.id, commandName, optionsArr);
 }
 
 const getReply = ({ id }) => Promise.race([
-    new Promise(resolve => client.on('messageUpdate', (reply) => {
+    new Promise(resolve => client.on('messageUpdate', reply => {
+        console.log(192, reply.reactions)
         if (reply.reactions.message.interaction?.id === id) {
             const message = pick(reply.reactions.message, MESSAGE_FIELDS);
             message.embeds = pickArr(message.embeds, EMBED_FIELDS);
@@ -67,5 +68,7 @@ client.once('ready', async () => {
 // };
 
 client.login(TOKEN);
+
+client.on('messageUpdate', z => console.log(312, z))
 
 module.exports = { getCommands, getSlashReply };

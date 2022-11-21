@@ -1,0 +1,153 @@
+openapi: 3.0.0
+servers:
+  - description: SwaggerHub API Auto Mocking
+    url: https://virtserver.swaggerhub.com/spicecat/http-discord-bot/1.0.0
+  - description: Localhost Server
+    url: http://localhost:8000/
+info:
+  version: 1.0.0
+  title: http-discord-bot-api
+  description: The API for the http-discord-bot project
+paths:
+  /ping:
+    get:
+      summary: Ping the server
+      description: test the status of the server
+      responses:
+        200:
+          description: OK
+          content:
+            text/html:
+              example: pong
+        400:
+          $ref: "#/components/responses/BadRequest"
+  /bot:
+    get:
+      tags:
+        - commands
+      summary: List bot slash commands
+      description: get a list of a bot's slash commands
+      responses:
+        200:
+          description: list of bot slash commands
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Command"
+    post:
+      tags:
+        - commands
+      summary: Send bot slash command
+      description: get a list of a bot's slash commands
+      responses:
+        200:
+          description: list of bot slash commands
+          content:
+            application/json:
+              schema:
+                type: object
+components:
+  schemas:
+    Command:
+      type: object
+      properties:
+        options:
+          type: array
+          items:
+            $ref: "#/components/schemas/Option"
+        name:
+          type: string
+          example: "balance-changes"
+        description:
+          type: string
+          example: "Check The Latest Balance Changes"
+      description: Discord bot slash command
+    Option:
+      type: object
+      properties:
+        type:
+          type: string
+          example: STRING
+          enum:
+            - SUB_COMMAND
+            - SUB_COMMAND_GROUP
+            - STRING
+            - INTEGER
+            - BOOLEAN
+            - USER
+            - CHANNEL
+            - ROLE
+            - MENTIONABLE
+            - NUMBER
+            - ATTACHMENT
+          description: Type of option
+        name:
+          type: string
+          minLength: 1
+          maxLength: 32
+          description: 1-32 character name
+        description:
+          type: string
+          minLength: 1
+          maxLength: 100
+          description: 1-100 character description
+        required:
+          type: boolean
+          default: false
+          description: If the parameter is required or optional
+        min_value:
+          type: number
+          description: If the option is an INTEGER or NUMBER type, the minimum value permitted
+        max_value:
+          type: number
+          description: If the option is an INTEGER or NUMBER type, the maximum value permitted
+        min_length:
+          type: integer
+          format: int32
+          minimum: 0
+          maximum: 6000
+          description: For option type STRING, the minimum allowed length (minimum of 0, maximum of 6000)
+        max_length:
+          type: integer
+          format: int32
+          minimum: 1
+          maximum: 6000
+          description: For option type STRING, the minimum allowed length (minimum of 1, maximum of 6000)
+      required:
+        - type
+        - name
+        - description
+      description: Discord bot slash command option
+  responses:
+    BadRequest:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+                example: Bad Request
+    NotFound:
+      description: Not Found
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+                example: Not Found
+    ServerError:
+      description: Internal Server Error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+                example: Internal Server Error

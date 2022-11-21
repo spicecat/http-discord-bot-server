@@ -14,6 +14,7 @@ const postSlashController = async (req, res) => {
         const reply = await getSlashReply(req.query);
         res.send(reply);
     } catch (err) {
+        console.log(99, err)
         res.sendStatus(400);
     }
 };
