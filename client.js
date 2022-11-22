@@ -46,17 +46,37 @@ const sendSlash = async ({ channel, commandName, args }) => {
     return channel.sendSlash(channel.recipient.id, commandName, optionsArr);
 }
 
-const getReply = ({ id }) => Promise.race([
-    new Promise(resolve => client.on('messageUpdate', reply => {
-        console.log(192, reply.reactions)
+
+const getReply = async ({ id }) => {
+    const replyListenerCallback = resolve => reply => {
         if (reply.reactions.message.interaction?.id === id) {
+            console.log(49183, reply, this)
             const message = pick(reply.reactions.message, MESSAGE_FIELDS);
             message.embeds = pickArr(message.embeds, EMBED_FIELDS);
             resolve(message);
-        }
-    })),
-    new Promise(resolve => setTimeout(resolve, TIMEOUT))
-]);
+        };
+    }
+
+    const replyListener = event => {
+        let callback;
+        const listener = new Promise(resolve => client.on(event, callback = replyListenerCallback(resolve)))
+        return { callback, listener }
+    };
+
+    const messageCreate = replyListener('messageCreate');
+    const messageUpdate = replyListener('messageUpdate');
+
+    const res = await Promise.race([
+        messageCreate.listener,
+        messageUpdate.listener,
+        new Promise(resolve => setTimeout(resolve, TIMEOUT))
+    ]);
+
+    client.removeListener('messageCreate', messageCreate.callback);
+    client.removeListener('messageUpdate', messageUpdate.callback);
+
+    return res;
+}
 
 client.once('ready', async () => {
     console.log('Logged in as:', client.user.username);
@@ -68,7 +88,5 @@ client.once('ready', async () => {
 // };
 
 client.login(TOKEN);
-
-client.on('messageUpdate', z => console.log(312, z))
 
 module.exports = { getCommands, getSlashReply };
