@@ -1,0 +1,10 @@
+{
+  "lambda": {
+    "role": "http-discord-bot-server-executor",
+    "name": "http-discord-bot-server",
+    "region": "us-east-2"
+  },
+  "api": {
+    "id": "0yuf1najb5"
+  }
+}
