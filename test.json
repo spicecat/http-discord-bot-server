@@ -1,0 +1,83 @@
+{
+    "t": [
+        {
+            "channelId": "1043274683446997093",
+            "guildId": null,
+            "id": "1048292504870588556",
+            "position": null,
+            "createdTimestamp": 1670002809494,
+            "type": "APPLICATION_COMMAND",
+            "system": false,
+            "content": "",
+            "authorId": "785358819021815828",
+            "pinned": false,
+            "tts": false,
+            "nonce": "1048292503377281024",
+            "embeds": [],
+            "components": [],
+            "attachments": [],
+            "stickers": [],
+            "editedTimestamp": null,
+            "webhookId": "785358819021815828",
+            "groupActivityApplicationId": null,
+            "applicationId": "785358819021815828",
+            "activity": null,
+            "flags": 128,
+            "reference": null,
+            "cleanContent": ""
+        },
+        {
+            "channelId": "1043274683446997093",
+            "guildId": null,
+            "id": "1048292509152989304",
+            "position": null,
+            "createdTimestamp": 1670002810515,
+            "type": "DEFAULT",
+            "system": false,
+            "content": "",
+            "authorId": "785358819021815828",
+            "pinned": false,
+            "tts": false,
+            "nonce": null,
+            "embeds": [
+                {
+                    "type": "rich",
+                    "title": "Reactify Help",
+                    "description": "Reactify is a role management and role reaction bot for servers to manage and automate giving roles to users with some nice utility.\n:flag_gb: Supports multiple languages!\n** **",
+                    "url": null,
+                    "color": 15892224,
+                    "timestamp": null,
+                    "fields": [
+                        {
+                            "value": "<:OMatom:787484680374321203> **Reaction Roles** - Get server roles by clicking a reaction.\n<:OMbomb:787474558121934848> **Blacklist** - Blacklist users from getting roles in reaction roles or other commands.\n<:OMnotepad:795654252106219600> **Logs** - Log reaction roles, roles given/taken or last roles when someone leaves the server.\n<:OMdonate:787474558423924745> **Messages** - Set custom messages when some boosts or becomes a patreon donator in your server.\n<:OMrainbow_flag:787484680071938050> **Color Roles** - Get a color role in a server.\n<:OMparty_popper:787484680609726484> **Birthday Role** - Get a server role when it's your birthday. (Not Available)\n<:OMpaint_brush:787484680411807764> **Color of the Day** - Get a role that changes color every day.",
+                            "name": "Features",
+                            "inline": false
+                        },
+                        {
+                            "value": "[Bot Invite](https://discord.com/oauth2/authorize?client_id=785358819021815828&scope=bot+applications.commands&permissions=275146730560&response_type=code&redirect_uri=https%3A%2F%2Ffluxpoint.dev%2Fredirect?bot=reactify) | [Discord Server](https://discord.gg/fluxpoint) | [Website](https://fluxpoint.dev) | [Upvote Bot](https://discord.boats/bot/reactify) | [Donate](https://www.patreon.com/FluxpointDev)",
+                            "name": "Links",
+                            "inline": false
+                        }
+                    ],
+                    "thumbnail": null,
+                    "image": null,
+                    "video": null,
+                    "author": null,
+                    "provider": null
+                }
+            ],
+            "components": [],
+            "attachments": [],
+            "stickers": [],
+            "editedTimestamp": null,
+            "webhookId": null,
+            "groupActivityApplicationId": null,
+            "applicationId": null,
+            "activity": null,
+            "flags": 0,
+            "reference": null,
+            "interaction": null,
+            "cleanContent": ""
+        }
+    ]
+}

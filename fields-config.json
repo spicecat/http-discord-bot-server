@@ -7,7 +7,9 @@
     "EMBED_FIELDS": [
         "type",
         "title",
-        "description"
+        "description",
+        "fields",
+        "footer"
     ],
     "MESSAGE_FIELDS": [
         "content",
