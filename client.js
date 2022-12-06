@@ -27,6 +27,9 @@ const getCommands = async ({ channelId, targetId, commandFields, optionFields })
 
 const getChannelCommands = async ({ channel, commandFields = COMMAND_FIELDS, optionFields = OPTION_FIELDS }) => {
     let commands = await channel.recipient.application.commands.fetch();
+    // console.log(100, 'commands', commands)
+    commands = commands.filter(({ type }) => type === 'CHAT_INPUT')
+    console.log(100, 'CHAT_INPUT commands', commands)
     commands = pickArr(commands, commandFields).map(({ options, ...cmd }) => (
         { options: pickArr(options, optionFields), ...cmd })
     );
@@ -41,7 +44,8 @@ const getSlashReply = async ({ channelId, targetId, commandName, ...args }) => {
 
 const sendSlash = async ({ channel, commandName, args }) => {
     const commands = await getChannelCommands({ channel });
-    const { options } = commands.filter(cmd => cmd.name === commandName)[0];
+    const command = commands.filter(cmd => cmd.name === commandName)[0];
+    const { options } = command
     const optionsArr = options.map(({ name }) => args[name]);
     return channel.sendSlash(channel.recipient.id, commandName, optionsArr);
 }
@@ -72,7 +76,7 @@ const getReply = async (slash, channel) => {
     //     new Promise(resolve => setTimeout(resolve, TIMEOUT))
     // ]);
 
-    console.log(93876142, slash.nonce, )
+    console.log(93876142, slash.nonce)
     const filter = msg => {
         console.log(102, msg.nonce === slash.nonce, msg.reactions, msg)
         return 1
