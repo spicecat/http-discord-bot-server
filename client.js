@@ -37,7 +37,7 @@ const getChannelCommands = async ({ channel, commandFields = COMMAND_FIELDS, opt
 const getSlashReply = async ({ channelId, targetId, commandName, ...args }) => {
     const channel = await getChannel({ channelId, targetId });
     const slash = await sendSlash({ channel, commandName, args });
-    return getReply(slash, channel);
+    return getReply({ channel, slash });
 }
 
 const sendSlash = async ({ channel, commandName, args }) => {
@@ -49,25 +49,45 @@ const sendSlash = async ({ channel, commandName, args }) => {
 }
 
 
-const getReply = async (slash, channel) => {
-    // const replyListenerCallback = resolve => reply => {
-    //     if (reply.nonce === nonce) {
-    //         console.log(49183, reply)
-    //         const message = pick(reply.reactions.message, MESSAGE_FIELDS);
-    //         message.embeds = pickArr(message.embeds, EMBED_FIELDS);
-    //         // resolve(message);
-    //     };
-    // }
+const getReply = async ({ channel, slash, max = 1, messageUpdate }) => {
+    console.log(1039999, slash.nonce)
 
-    console.log(93876142, slash.nonce)
     const filter = msg => {
-        console.log(102, msg.nonce === slash.nonce, msg.reactions, msg)
-        return msg.nonce === slash.nonce
-        // return 1
+        console.log(1029999, msg.nonce === slash.nonce, msg.reactions, msg)
+        return msg.nonce === slash.nonce && (msg.content || msg.embeds.length);
+    }
+
+    if (messageUpdate) {
+        const replyListenerCallback = resolve => reply => {
+            if (filter(reply)) {
+                console.log(49183, reply)
+                resolve(message);
+            };
+        }
+
+        const replyListener = event => {
+            let callback;
+            const listener = new Promise(resolve => {
+                callback = replyListenerCallback(resolve);
+                client.on(event, callback);
+            })
+            return { callback, listener }
+        };
+
+        const messageUpdateListener = replyListener('messageUpdate');
+
+        const res = await Promise.race([
+            messageUpdateListener.listener,
+            new Promise(resolve => setTimeout(resolve, TIMEOUT))
+        ]);
+        // const message = pick(reply.reactions.message, MESSAGE_FIELDS);
+        // message.embeds = pickArr(message.embeds, EMBED_FIELDS);
+        console.log(200999, res)
+        return res;
     }
 
     return new Promise(resolve => {
-        channel.awaitMessages({ filter, max: 2, time: TIMEOUT, errors: ['time'] })
+        channel.awaitMessages({ filter, max, time: TIMEOUT, errors: ['time'] })
             .then(collected => {
                 console.log(84576, collected)
                 resolve(collected)
@@ -79,7 +99,7 @@ const getReply = async (slash, channel) => {
     })
 }
 
-client.once('ready', async () => {
+client.once('ready', () => {
     console.log('Logged in as:', client.user.username);
 });
 

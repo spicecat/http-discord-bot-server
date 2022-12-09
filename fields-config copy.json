@@ -19,5 +19,12 @@
         "content",
         "embeds"
     ],
-    "OPTION_FIELDS": null
+    "OPTION_FIELDS": [
+        "type",
+        "name",
+        "description",
+        "required",
+        "minValue",
+        "maxValue"
+    ]
 }
