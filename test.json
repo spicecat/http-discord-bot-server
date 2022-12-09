@@ -79,5 +79,173 @@
             "interaction": null,
             "cleanContent": ""
         }
-    ]
+    ],
+    "cmd": {
+        "options": [
+            {
+                "type": "SUB_COMMAND_GROUP",
+                "name": "menus",
+                "description": "Manage the self role menus registered with the bot.",
+                "options": [
+                    {
+                        "type": "SUB_COMMAND",
+                        "name": "create",
+                        "description": "Create a new self roles menu.",
+                        "options": [
+                            {
+                                "type": "CHANNEL",
+                                "name": "channel",
+                                "description": "The channel to send the menu to.",
+                                "required": true,
+                                "channelTypes": [
+                                    "GUILD_TEXT",
+                                    "GUILD_NEWS"
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "type": "SUB_COMMAND",
+                        "name": "edit",
+                        "description": "Edit an existing self roles menu.",
+                        "options": [
+                            {
+                                "type": "STRING",
+                                "name": "menu-id",
+                                "description": "The menu ID (message ID) for a self roles menu you want to edit.",
+                                "required": true,
+                                "maxLength": 20
+                            }
+                        ]
+                    },
+                    {
+                        "type": "SUB_COMMAND",
+                        "name": "limit",
+                        "description": "Set limits on how many roles can be taken on a self roles menu.",
+                        "options": [
+                            {
+                                "type": "STRING",
+                                "name": "menu-id",
+                                "description": "The menu ID (message ID) for a self roles menu you want to limit.",
+                                "required": true,
+                                "maxLength": 20
+                            },
+                            {
+                                "type": "NUMBER",
+                                "name": "minimum",
+                                "description": "The minimum number of roles a user should take from the menu.",
+                                "required": true,
+                                "minValue": 0,
+                                "maxValue": 25
+                            },
+                            {
+                                "type": "NUMBER",
+                                "name": "maximum",
+                                "description": "The maximum number of roles a user can take from the menu.",
+                                "required": true,
+                                "minValue": 0,
+                                "maxValue": 25
+                            }
+                        ]
+                    },
+                    {
+                        "type": "SUB_COMMAND",
+                        "name": "delete",
+                        "description": "Delete an existing self roles menu.",
+                        "options": [
+                            {
+                                "type": "STRING",
+                                "name": "menu-id",
+                                "description": "The menu ID (message ID) for a self roles menu you want to delete.",
+                                "required": true,
+                                "maxLength": 20
+                            }
+                        ]
+                    },
+                    {
+                        "type": "SUB_COMMAND",
+                        "name": "view",
+                        "description": "View the list of current self role menus."
+                    }
+                ]
+            },
+            {
+                "type": "SUB_COMMAND",
+                "name": "add",
+                "description": "Add a role to an existing self roles menu.",
+                "options": [
+                    {
+                        "type": "STRING",
+                        "name": "menu-id",
+                        "description": "The menu ID (message ID) for a self roles menu you want to add a role to.",
+                        "required": true,
+                        "maxLength": 20
+                    },
+                    {
+                        "type": "ROLE",
+                        "name": "role",
+                        "description": "The role to add.",
+                        "required": true
+                    },
+                    {
+                        "type": "STRING",
+                        "name": "emoji",
+                        "description": "Display an emoji next to the role in the menu.",
+                        "required": false,
+                        "maxLength": 100
+                    },
+                    {
+                        "type": "STRING",
+                        "name": "description",
+                        "description": "Add a description of the role on the menu.",
+                        "required": false,
+                        "maxLength": 100
+                    }
+                ]
+            },
+            {
+                "type": "SUB_COMMAND",
+                "name": "remove",
+                "description": "Remove a role from an existing self roles menu.",
+                "options": [
+                    {
+                        "type": "STRING",
+                        "name": "menu-id",
+                        "description": "The menu ID (message ID) for a self roles menu you want to remove a role from.",
+                        "required": true,
+                        "maxLength": 20
+                    },
+                    {
+                        "type": "ROLE",
+                        "name": "role",
+                        "description": "The role to remove.",
+                        "required": true
+                    }
+                ]
+            },
+            {
+                "type": "SUB_COMMAND",
+                "name": "edit",
+                "description": "Edit the information for a role on a self roles menu.",
+                "options": [
+                    {
+                        "type": "STRING",
+                        "name": "menu-id",
+                        "description": "The menu ID (message ID) for a self roles menu you want to edit a role on.",
+                        "required": true,
+                        "maxLength": 20
+                    },
+                    {
+                        "type": "ROLE",
+                        "name": "role",
+                        "description": "The role to edit.",
+                        "required": true
+                    }
+                ]
+            }
+        ],
+        "type": "CHAT_INPUT",
+        "name": "self-roles",
+        "description": "Add/remove roles from a self role menu. These can be setup with the `self-role-menus` command."
+    }
 }

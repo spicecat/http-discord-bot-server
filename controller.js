@@ -3,8 +3,10 @@ const { getCommands, getSlashReply } = require('./client');
 const getCommandsController = async (req, res) => {
     try {
         const commands = await getCommands(req.query);
+        // console.log(100, commands)
         res.send(commands);
     } catch (err) {
+        console.log(99, err)
         res.sendStatus(400);
     }
 }

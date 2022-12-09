@@ -1,6 +1,6 @@
 const { Client } = require('discord.js-selfbot-v13');
 const { RETRY_LIMIT, TIMEOUT } = require('./config');
-const { COMMAND_FIELDS, EMBED_FIELDS, MESSAGE_FIELDS, OPTION_FIELDS, } = require('./fields-config');
+const { COMMAND_FIELDS, COMMAND_TYPES, EMBED_FIELDS, MESSAGE_FIELDS, OPTION_FIELDS, } = require('./fields-config');
 
 const { CHANNEL_ID, TARGET_ID, TOKEN } = process.env;
 
@@ -14,10 +14,10 @@ const pick = (obj, paths) => paths
 const getChannel = async ({ channelId = CHANNEL_ID, targetId = TARGET_ID }) => {
     const getChannelIdFromTarget = async (targetId) => {
         const target = await client.users.fetch(targetId);
-        channelId = (await target.send('hi')).channelId;
-        return channelId;
+        const message = await target.send('hi');
+        return message.channelId;
     }
-    return client.channels.fetch(channelId || await getChannelIdFromTarget(targetId));
+    return client.channels.fetch(channelId || await getChannelIdFromTarget(targetId))
 }
 
 const getCommands = async ({ channelId, targetId, commandFields, optionFields }) => {
@@ -27,9 +27,7 @@ const getCommands = async ({ channelId, targetId, commandFields, optionFields })
 
 const getChannelCommands = async ({ channel, commandFields = COMMAND_FIELDS, optionFields = OPTION_FIELDS }) => {
     let commands = await channel.recipient.application.commands.fetch();
-    // console.log(100, 'commands', commands)
-    commands = commands.filter(({ type }) => type === 'CHAT_INPUT')
-    console.log(100, 'CHAT_INPUT commands', commands)
+    commands = commands.filter(({ type }) => COMMAND_TYPES.includes(type))
     commands = pickArr(commands, commandFields).map(({ options, ...cmd }) => (
         { options: pickArr(options, optionFields), ...cmd })
     );
@@ -61,32 +59,18 @@ const getReply = async (slash, channel) => {
     //     };
     // }
 
-    // const replyListener = event => {
-    //     let callback;
-    //     const listener = new Promise(resolve => client.on(event, callback = replyListenerCallback(resolve)))
-    //     return { callback, listener }
-    // };
-
-    // const messageCreate = replyListener('messageCreate');
-    // const messageUpdate = replyListener('messageUpdate');
-
-    // const res = await Promise.race([
-    //     messageCreate.listener,
-    //     // messageUpdate.listener,
-    //     new Promise(resolve => setTimeout(resolve, TIMEOUT))
-    // ]);
-
     console.log(93876142, slash.nonce)
     const filter = msg => {
         console.log(102, msg.nonce === slash.nonce, msg.reactions, msg)
-        return 1
+        return msg.nonce === slash.nonce
+        // return 1
     }
 
     return new Promise(resolve => {
         channel.awaitMessages({ filter, max: 2, time: TIMEOUT, errors: ['time'] })
             .then(collected => {
+                console.log(84576, collected)
                 resolve(collected)
-                // console.log(84576, collected)
             })
             .catch(collected => {
                 console.log(4357, collected)

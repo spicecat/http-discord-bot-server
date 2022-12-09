@@ -1,0 +1,23 @@
+{
+    "COMMAND_FIELDS": [
+        "type",
+        "name",
+        "description",
+        "options"
+    ],
+    "COMMAND_TYPES": [
+        "CHAT_INPUT"
+    ],
+    "EMBED_FIELDS": [
+        "type",
+        "title",
+        "description",
+        "fields",
+        "footer"
+    ],
+    "MESSAGE_FIELDS": [
+        "content",
+        "embeds"
+    ],
+    "OPTION_FIELDS": null
+}

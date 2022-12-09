@@ -1,26 +1,9 @@
 {
-    "COMMAND_FIELDS": [
-        "name",
-        "description",
-        "options"
+    "COMMAND_FIELDS": null,
+    "COMMAND_TYPES": [
+        "CHAT_INPUT"
     ],
-    "EMBED_FIELDS": [
-        "type",
-        "title",
-        "description",
-        "fields",
-        "footer"
-    ],
-    "MESSAGE_FIELDS": [
-        "content",
-        "embeds"
-    ],
-    "OPTION_FIELDS": [
-        "type",
-        "name",
-        "description",
-        "required",
-        "minValue",
-        "maxValue"
-    ]
+    "EMBED_FIELDS": null,
+    "MESSAGE_FIELDS": null,
+    "OPTION_FIELDS": null
 }
