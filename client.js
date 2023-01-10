@@ -11,13 +11,13 @@ const pick = (obj, paths) => paths
     ? paths.reduce((res, key) => ({ ...res, [key]: obj[key] }), {})
     : obj;
 
-const getChannel = async ({ channelId = CHANNEL_ID, targetId = TARGET_ID }) => {
+const getChannel = async ({ channelId, targetId }) => {
     const getChannelIdFromTarget = async (targetId) => {
         const target = await client.users.fetch(targetId);
         const message = await target.send('hi');
         return message.channelId;
     }
-    return client.channels.fetch(channelId || await getChannelIdFromTarget(targetId))
+    return client.channels.fetch(channelId || await getChannelIdFromTarget(targetId || TARGET_ID) || CHANNEL_ID)
 }
 
 const getCommands = async ({ channelId, targetId, commandFields, optionFields }) => {
