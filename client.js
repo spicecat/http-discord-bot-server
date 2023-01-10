@@ -34,7 +34,7 @@ const getChannelCommands = async ({ channel, commandFields = COMMAND_FIELDS, opt
     return commands;
 }
 
-const getSlashReply = async ({ channelId, targetId, max, messageUpdate, commandName, ...options }) => {
+const getSlashReply = async ({ channelId, targetId, max, messageUpdate, commandName, options }) => {
     const channel = await getChannel({ channelId, targetId });
     const slash = await sendSlash({ channel, commandName, options });
     return getReply({ channel, slash, max, messageUpdate });
@@ -45,6 +45,7 @@ const sendSlash = async ({ channel, commandName, options }) => {
     const command = commands.filter(cmd => cmd.name === commandName)[0];
     const { options: commandOptions } = command
     const optionsArr = commandOptions.map(({ name }) => options[name]);
+    console.log(2000, options, optionsArr)
     return channel.sendSlash(channel.recipient.id, commandName, optionsArr);
 }
 

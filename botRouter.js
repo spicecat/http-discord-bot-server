@@ -4,11 +4,19 @@ const router = express.Router();
 const { getCommandsController, postSlashController } = require('./controller');
 
 const log = (req, _, next) => {
-    console.log(req.path, req.query)
-    next()
+    console.log(req.path, req.query);
+    next();
 }
 
-router.get('/', log, getCommandsController);
-router.post('/', log, postSlashController);
+const parseOptions = (req, _, next) => {
+    req.query.options = JSON.parse(req.query.options);
+    next();
+}
+
+router.use(parseOptions);
+router.use(log);
+
+router.get('/', getCommandsController);
+router.post('/', postSlashController);
 
 module.exports = router;

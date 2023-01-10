@@ -63,11 +63,11 @@
     "colId": "9d180b2f-fe52-4bb8-9ff2-730b607a5b31",
     "containerId": "",
     "name": "sendSlash",
-    "url": "/bot?commandName=avatar&options=%5B%22name%22%3A%22N1c5xi'%5D&targetId={{PBT}}",
+    "url": "/bot?commandName=avatar&options={\"user\":\"80351110224678912\"}&targetId={{PBT}}",
     "method": "POST",
     "sortNum": 30000,
     "created": "2022-12-09T17:17:18.620Z",
-    "modified": "2023-01-10T19:25:47.863Z",
+    "modified": "2023-01-10T20:11:39.144Z",
     "headers": [],
     "params": [
       {
@@ -95,7 +95,7 @@
       },
       {
         "name": "options",
-        "value": "%5B%22name%22%3A%22N1c5xi'%5D",
+        "value": "{\"user\":\"80351110224678912\"}",
         "isPath": false
       },
       {
