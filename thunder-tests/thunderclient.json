@@ -25,16 +25,17 @@
     "colId": "9d180b2f-fe52-4bb8-9ff2-730b607a5b31",
     "containerId": "",
     "name": "getCommands",
-    "url": "/bot?channelId={{S}}",
+    "url": "/bot?channelId={{PB}}",
     "method": "GET",
     "sortNum": 20000,
     "created": "2022-11-18T17:09:39.803Z",
-    "modified": "2023-01-10T14:36:22.685Z",
+    "modified": "2023-01-10T19:06:30.122Z",
     "headers": [],
     "params": [
       {
         "name": "channelId",
         "value": "{{S}}",
+        "isDisabled": true,
         "isPath": false
       },
       {
@@ -52,7 +53,6 @@
       {
         "name": "channelId",
         "value": "{{PB}}",
-        "isDisabled": true,
         "isPath": false
       }
     ],

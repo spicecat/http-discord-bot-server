@@ -1,10 +1,11 @@
 const { getCommands, getSlashReply } = require('./client');
 
+BigInt.prototype.toJSON = this.toString;
+
 const getCommandsController = async (req, res) => {
     try {
         const commands = await getCommands(req.query);
-        // console.log(100, commands)
-        res.send(commands);
+        res.send(commands[0]);
     } catch (err) {
         console.log(99, err)
         res.sendStatus(400);
