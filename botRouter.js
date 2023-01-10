@@ -3,13 +3,12 @@ const router = express.Router();
 
 const { getCommandsController, postSlashController } = require('./controller');
 
-router.get('/', (req, _, next) => {
+const log = (req, _, next) => {
     console.log(req.path, req.query)
     next()
-}, getCommandsController);
-router.post('/', (req, _, next) => {
-    console.log(req.path, req.query)
-    next()
-}, postSlashController);
+}
+
+router.get('/', log, getCommandsController);
+router.post('/', log, postSlashController);
 
 module.exports = router;

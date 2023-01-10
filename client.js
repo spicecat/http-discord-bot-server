@@ -34,17 +34,17 @@ const getChannelCommands = async ({ channel, commandFields = COMMAND_FIELDS, opt
     return commands;
 }
 
-const getSlashReply = async ({ channelId, targetId, commandName, ...args }) => {
+const getSlashReply = async ({ channelId, targetId, max, messageUpdate, commandName, ...options }) => {
     const channel = await getChannel({ channelId, targetId });
-    const slash = await sendSlash({ channel, commandName, args });
-    return getReply({ channel, slash });
+    const slash = await sendSlash({ channel, commandName, options });
+    return getReply({ channel, slash, max, messageUpdate });
 }
 
-const sendSlash = async ({ channel, commandName, args }) => {
+const sendSlash = async ({ channel, commandName, options }) => {
     const commands = await getChannelCommands({ channel });
     const command = commands.filter(cmd => cmd.name === commandName)[0];
-    const { options } = command
-    const optionsArr = options.map(({ name }) => args[name]);
+    const { options: commandOptions } = command
+    const optionsArr = commandOptions.map(({ name }) => options[name]);
     return channel.sendSlash(channel.recipient.id, commandName, optionsArr);
 }
 
@@ -53,7 +53,7 @@ const getReply = async ({ channel, slash, max = 1, messageUpdate }) => {
     console.log(1039999, slash.nonce)
 
     const filter = msg => {
-        console.log(1029999, msg.nonce === slash.nonce, msg.reactions, msg)
+        console.log(1029999, msg.nonce === slash.nonce, msg)
         return msg.nonce === slash.nonce && (msg.content || msg.embeds.length);
     }
 
@@ -61,8 +61,8 @@ const getReply = async ({ channel, slash, max = 1, messageUpdate }) => {
         const replyListenerCallback = resolve => reply => {
             if (filter(reply)) {
                 console.log(49183, reply)
-                resolve(message);
-            };
+                // resolve(reply);
+            }
         }
 
         const replyListener = event => {
@@ -71,7 +71,7 @@ const getReply = async ({ channel, slash, max = 1, messageUpdate }) => {
                 callback = replyListenerCallback(resolve);
                 client.on(event, callback);
             })
-            return { callback, listener }
+            return { callback, listener };
         };
 
         const messageUpdateListener = replyListener('messageUpdate');
@@ -80,23 +80,25 @@ const getReply = async ({ channel, slash, max = 1, messageUpdate }) => {
             messageUpdateListener.listener,
             new Promise(resolve => setTimeout(resolve, TIMEOUT))
         ]);
+
+        client.removeListener('messageUpdate', messageUpdateListener.callback);
         // const message = pick(reply.reactions.message, MESSAGE_FIELDS);
         // message.embeds = pickArr(message.embeds, EMBED_FIELDS);
         console.log(200999, res)
         return res;
+    } else {
+        return new Promise(resolve => {
+            channel.awaitMessages({ filter, max, time: TIMEOUT, errors: ['time'] })
+                .then(collected => {
+                    console.log(84576, collected)
+                    resolve(collected)
+                })
+                .catch(collected => {
+                    console.log(4357, collected)
+                    resolve(collected)
+                });
+        });
     }
-
-    return new Promise(resolve => {
-        channel.awaitMessages({ filter, max, time: TIMEOUT, errors: ['time'] })
-            .then(collected => {
-                console.log(84576, collected)
-                resolve(collected)
-            })
-            .catch(collected => {
-                console.log(4357, collected)
-                resolve(collected)
-            });
-    })
 }
 
 client.once('ready', () => {
