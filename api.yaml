@@ -1,13 +1,13 @@
 openapi: 3.0.0
 servers:
   - description: SwaggerHub API Auto Mocking
-    url: https://virtserver.swaggerhub.com/spicecat/http-discord-bot/1.0.0
+    url: https://virtserver.swaggerhub.com/spicecat/http-discord-bridge/1.0.0
   - description: Localhost Server
     url: http://localhost:8000/
 info:
   version: 1.0.0
-  title: http-discord-bot-api
-  description: The API for the http-discord-bot project
+  title: http-discord-bridge-api
+  description: The API for the http-discord-bridge project
 paths:
   /ping:
     get:

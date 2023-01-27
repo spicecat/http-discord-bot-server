@@ -1,7 +1,7 @@
 {
   "lambda": {
-    "role": "http-discord-bot-server-executor",
-    "name": "http-discord-bot-server",
+    "role": "http-discord-bridge-server-executor",
+    "name": "http-discord-bridge-server",
     "region": "us-east-2"
   },
   "api": {
