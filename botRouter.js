@@ -9,7 +9,7 @@ const log = (req, _, next) => {
 }
 
 const parseOptions = (req, _, next) => {
-    req.query.options = JSON.parse(req.query.options);
+    if (req.query.options) req.query.options = JSON.parse(req.query.options);
     next();
 }
 

@@ -1,27 +1,27 @@
 {
     "name": "http-discord-bot-server",
     "version": "0.1.0",
-    "description": "Royale Alchemist web client server",
+    "description": "http-discord-bot web server",
     "private": true,
     "main": "local.js",
     "author": "spicecat",
     "scripts": {
-        "start": "pm2 start local.js",
+        "start": "pm2 start index.js --cron-restart=\"0 0 * * 0\" --max-memory-restart 500M --restart-delay=3000",
         "dev": "nodemon local.js",
         "init-claudia": "claudia generate-serverless-express-proxy --express-module app --set-env-from-json .env.json",
         "create-api": "claudia create --handler lambda.handler --deploy-proxy-api --region us-east-2 --set-env-from-json .env.json",
         "update-api": "claudia update --region us-east-2 --set-env-from-json .env.json"
     },
     "dependencies": {
-        "aws-serverless-express": "^3.4.0",
-        "claudia": "^5.14.1",
         "cors": "^2.8.5",
-        "discord.js-selfbot-v13": "^2.9.20",
-        "dotenv-json": "^1.0.0",
-        "express": "^4.18.2",
-        "pm2": "^5.2.2"
+        "discord.js-selfbot-v13": "^2.10.1",
+        "express": "^4.18.2"
     },
     "devDependencies": {
-        "nodemon": "^2.0.20"
+        "aws-serverless-express": "^3.4.0",
+        "claudia": "^5.14.1",
+        "dotenv-json": "^1.0.0",
+        "nodemon": "^2.0.20",
+        "pm2": "^5.2.2"
     }
 }
