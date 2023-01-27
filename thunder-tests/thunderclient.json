@@ -25,11 +25,11 @@
     "colId": "9d180b2f-fe52-4bb8-9ff2-730b607a5b31",
     "containerId": "",
     "name": "getCommands",
-    "url": "/bot?channelId={{R}}",
+    "url": "/bot?channelId={{PB}}",
     "method": "GET",
     "sortNum": 20000,
     "created": "2022-11-18T17:09:39.803Z",
-    "modified": "2023-01-23T20:00:12.358Z",
+    "modified": "2023-01-27T14:49:00.987Z",
     "headers": [],
     "params": [
       {
@@ -47,12 +47,12 @@
       {
         "name": "channelId",
         "value": "{{R}}",
+        "isDisabled": true,
         "isPath": false
       },
       {
         "name": "channelId",
         "value": "{{PB}}",
-        "isDisabled": true,
         "isPath": false
       }
     ],
@@ -70,11 +70,11 @@
     "colId": "9d180b2f-fe52-4bb8-9ff2-730b607a5b31",
     "containerId": "",
     "name": "sendSlash",
-    "url": "/bot?commandName=avatar&options={\"user\":\"80351110224678912\"}&targetId={{PBT}}",
+    "url": "/bot?commandName=avatar&options={\"user\":\"80351110224678912\"}&channelId={{PB}}",
     "method": "POST",
     "sortNum": 30000,
     "created": "2022-12-09T17:17:18.620Z",
-    "modified": "2023-01-10T20:11:39.144Z",
+    "modified": "2023-01-27T18:34:39.544Z",
     "headers": [],
     "params": [
       {
@@ -114,12 +114,47 @@
       {
         "name": "channelId",
         "value": "{{PB}}",
-        "isDisabled": true,
         "isPath": false
       },
       {
         "name": "targetId",
         "value": "{{PBT}}",
+        "isDisabled": true,
+        "isPath": false
+      }
+    ],
+    "tests": []
+  },
+  {
+    "_id": "971cc6ea-9b40-4b98-a20f-fa20eb85f7a0",
+    "colId": "9d180b2f-fe52-4bb8-9ff2-730b607a5b31",
+    "containerId": "",
+    "name": "sendSlash Copy",
+    "url": "/bot?commandName=deck&messageUpdate=true&channelId={{RA}}&options={\"name\":\"f8ecf4\"}",
+    "method": "POST",
+    "sortNum": 40000,
+    "created": "2023-01-27T18:35:13.419Z",
+    "modified": "2023-01-27T19:04:22.352Z",
+    "headers": [],
+    "params": [
+      {
+        "name": "commandName",
+        "value": "deck",
+        "isPath": false
+      },
+      {
+        "name": "messageUpdate",
+        "value": "true",
+        "isPath": false
+      },
+      {
+        "name": "channelId",
+        "value": "{{RA}}",
+        "isPath": false
+      },
+      {
+        "name": "options",
+        "value": "{\"name\":\"f8ecf4\"}",
         "isPath": false
       }
     ],

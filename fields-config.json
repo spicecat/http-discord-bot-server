@@ -3,7 +3,5 @@
     "COMMAND_TYPES": [
         "CHAT_INPUT"
     ],
-    "EMBED_FIELDS": null,
-    "MESSAGE_FIELDS": null,
     "OPTION_FIELDS": null
 }
